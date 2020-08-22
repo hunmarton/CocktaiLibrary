@@ -2,6 +2,7 @@ const form = document.getElementById('form');
 const result = document.getElementById('res');
 const card = document.querySelector('.card');
 const single = document.querySelector('.single-result');
+const randomBtn = document.querySelector('#btn');
 
 //RENDER SINGLE DRINK
 const renderSingleDrink = (singleDrink) => {
@@ -50,6 +51,13 @@ const fetchSingleDrink = async (single) => {
     const drinkArr = data.drinks;
     renderSingleDrink(drinkArr);
 };
+//FETCH RANDOM DRINK
+const fetchRandomDrink = async () => {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`);
+    const data = await response.json();
+    const drinkArr = data.drinks;
+    renderSingleDrink(drinkArr);
+}
 //RENDER THE DRINKS TO THE UI
 const renderDrinks = (drinkArray) => {
     drinkArray.forEach(drink => {
@@ -99,4 +107,7 @@ result.addEventListener('click', e => {
         smallCards(cardsArr);
         fetchSingleDrink(cocktail);
     }
+});
+randomBtn.addEventListener('click', () => {
+    fetchRandomDrink();
 });
